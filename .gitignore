@@ -1,0 +1,7 @@
+# Secret files...
+setup.php
+
+# User data
+db/
+data/
+public/data/
