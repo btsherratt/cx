@@ -101,6 +101,8 @@ function cx_route($path) {
 					$template_variables['post_slug'] = '';
 					$template_variables['post_date'] = '';
 					$template_variables['post_data'] = '';
+					$template_variables['post_is_draft'] = true;
+					
 
 					$template_class = 'admin';
 					$template = 'post';
@@ -112,6 +114,7 @@ function cx_route($path) {
 					$template_variables['post_slug'] = $post->slug;
 					$template_variables['post_date'] = $post->date;
 					$template_variables['post_data'] = $post->data;
+					$template_variables['post_is_draft'] = $post->is_draft;
 
 					$template_class = 'admin';
 					$template = 'post';
@@ -121,13 +124,14 @@ function cx_route($path) {
 					if (isset($slug) == false) $slug = null;
 					$date = cx_form_input_sanitized_date_time('post_date');
 					if (isset($date) == false) $date = null;
+					$draft = cx_form_input_sanitized('post_is_draft') == 'draft';
 					$data = cx_form_input_sanitized('post_data');
 					
 					if (isset($_GET['id']) == false or $_GET['id'] == 0) {
-						cx_posts_add_post(1, $title, $slug, $date, $data);
+						cx_posts_add_post(1, $title, $slug, $date, $draft, $data);
 					} else {
 						$id = $_GET['id'];
-						cx_posts_update_post($id, $title, $slug, $date, $data);
+						cx_posts_update_post($id, $title, $slug, $date, $draft, $data);
 					}
 					
 					cx_http_redirect(cx_url_admin('/'));

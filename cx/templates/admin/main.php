@@ -2,7 +2,7 @@
 
 <h2>Posts</h2>
 <ul role="list">
-<?php foreach (cx_posts_get() as $post): ?>
+<?php foreach (cx_posts_get(include_drafts: true) as $post): ?>
 <li><a href="<?= cx_url_admin('/posts/edit?id=' . $post->id); ?>"><?= $post->title ?></a> <a href="<?= cx_url_admin('/posts/delete?id=' . $post->id); ?>">🚮</a></li>
 <?php endforeach; ?>
 </ul>

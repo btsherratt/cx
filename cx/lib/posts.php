@@ -15,6 +15,7 @@ class Post {
 	public $title;
 	public $slug;
 	public $date;
+	public $is_draft;
 	public $data;
 	public $html_content;
 	public $html_excerpt;
@@ -24,6 +25,7 @@ class Post {
 		$this->title = $dict['post_title'];
 		$this->slug = $dict['post_slug'];
 		$this->date = $dict['post_date'];
+		$this->is_draft = $dict['post_is_draft'];
 		$this->data = $dict['post_data'];
 		$this->html_content = mk_markdown($this->data);
 		$this->html_excerpt = null;
@@ -49,7 +51,7 @@ function cx_post_make_slug($title) {
 	return $slug;
 }
 
-function cx_posts_add_post($site_id, $title, $slug, $date, $data) {
+function cx_posts_add_post($site_id, $title, $slug, $date, $draft, $data) {
 	$creation_time = $update_time = time();
 	
 	if ($slug == null) {
@@ -67,14 +69,15 @@ function cx_posts_add_post($site_id, $title, $slug, $date, $data) {
 			post_slug,
 			post_date,
 			post_is_page,
+			post_is_draft,
 			post_title,
 			post_data,
 			post_data_version)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
-	cx_db_exec($sql, $site_id, $creation_time, $update_time, $slug, $date, false, $title, $data, 1);
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+	cx_db_exec($sql, $site_id, $creation_time, $update_time, $slug, $date, false, $draft, $title, $data, 1);
 }
 
-function cx_posts_update_post($post_id, $title, $slug, $date, $data) {
+function cx_posts_update_post($post_id, $title, $slug, $date, $draft, $data) {
 	$update_time = time();
 	
 	if ($slug == null) {
@@ -89,11 +92,12 @@ function cx_posts_update_post($post_id, $title, $slug, $date, $data) {
 		SET post_update_time = ?,
 		post_slug = ?,
 		post_date = ?,
+		post_is_draft = ?,
 		post_title = ?,
 		post_data = ?
 		WHERE post_id == ?;';
 		//LIMIT 1;';
-	cx_db_exec($sql, $update_time, $slug, $date , $title, $data, $post_id);
+	cx_db_exec($sql, $update_time, $slug, $date, $draft, $title, $data, $post_id);
 }
 
 function cx_posts_delete_post($post_id) {
@@ -103,16 +107,22 @@ function cx_posts_delete_post($post_id) {
 	cx_db_exec($sql, $post_id);
 }
 
-function cx_posts_get(int $limit = 0) {
+function cx_posts_get(int $limit = 0, bool $include_drafts = false) {
 	$sql = 'SELECT
 		post_id,
 		post_slug,
 		post_date,
+		post_is_draft,
 		post_title,
 		post_data
 		FROM posts
-		WHERE post_is_page==FALSE
-		ORDER BY post_date DESC';
+		WHERE post_is_page == FALSE';
+	
+	if ($include_drafts == false) {
+		$sql .= ' AND post_is_draft == FALSE';
+	}
+
+	$sql .= ' ORDER BY post_date DESC';
 	
 	if ($limit > 0) {
 		$sql .= ' LIMIT ' . $limit;
@@ -131,6 +141,7 @@ function cx_posts_find_post($post_id) {
 		post_id,
 		post_slug,
 		post_date,
+		post_is_draft,
 		post_title,
 		post_data
 		FROM posts
@@ -165,10 +176,12 @@ function cx_pages_get() {
 		post_id,
 		post_slug,
 		post_date,
+		post_is_draft,
 		post_title,
 		post_data
 		FROM posts
 		WHERE post_is_page == TRUE
+		AND post_is_draft == FALSE
 		ORDER BY post_creation_time DESC;';
 
 	foreach (cx_db_query($sql) as $post) {
@@ -186,6 +199,7 @@ cx_setup_register(1, function() {
 			post_slug STRING,
 			post_date INTEGER,
 			post_is_page BOOLEAN,
+			post_is_draft BOOLEAN,
 			post_title STRING,
 			post_data BLOB,
 			post_data_version INTEGER,
