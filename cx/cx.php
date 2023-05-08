@@ -168,6 +168,7 @@ function cx_route($path) {
 	}
 	
 	if ($template != null) {
+		$template_variables['site_id'] = cx_sites_find_site('localhost'); // FIXME: Actually find this...
 		$output = cx_template_render($template_class, $template, $template_variables);
 		echo($output);
 	} else {

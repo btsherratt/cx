@@ -20,7 +20,7 @@
 <ul role="list">
 <li><a href="<?= cx_url('/'); ?>">Home</a></li>
 
-<?php foreach (cx_pages_get() as $page): ?>
+<?php foreach (cx_site_get_pages($site_id) as $page): ?>
 <li><a href="<?= cx_url($page->url); ?>"><?= $page->title ?></a></li>
 <?php endforeach; ?>
 </ul>
