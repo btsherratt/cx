@@ -11,5 +11,5 @@ function cx_url_admin($path) {
 }
 
 function cx_url_site($path) {
-	return cx_site_url() . cx_url($path);
+	return 'https://' . cx_site_host() . cx_url($path);
 }

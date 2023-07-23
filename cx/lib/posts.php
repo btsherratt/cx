@@ -4,6 +4,72 @@ cx_require('lib', 'db.php');
 cx_require('lib', 'setup.php');
 cx_require('third_party', 'parsedown', 'Parsedown.php');
 
+class ExtendedParsedown extends Parsedown {
+	function __construct() {
+		$this->InlineTypes['!'] = array('InternalImage');
+	}
+
+	protected function inlineInternalImage($Excerpt) {
+		
+	}
+
+	
+
+	array_unshift($this->InlineTypes['['], 'FootnoteMarker');
+
+	protected $InlineTypes = array(
+		'"' => array('SpecialCharacter'),
+		'!' => array('Image'),
+		'&' => array('SpecialCharacter'),
+		'*' => array('Emphasis'),
+		':' => array('Url'),
+		'<' => array('UrlTag', 'EmailTag', 'Markup', 'SpecialCharacter'),
+		'>' => array('SpecialCharacter'),
+		'[' => array('Link'),
+		'_' => array('Emphasis'),
+		'`' => array('Code'),
+		'~' => array('Strikethrough'),
+		'\\' => array('EscapeSequence'),
+	);
+
+
+
+	protected function inlineInternalImage($Excerpt)
+	{
+		if ( ! isset($Excerpt['text'][1]) or $Excerpt['text'][1] !== '[')
+		{
+			return;
+		}
+
+		$Excerpt['text']= substr($Excerpt['text'], 1);
+
+		$Link = $this->inlineLink($Excerpt);
+
+		if ($Link === null)
+		{
+			return;
+		}
+
+		$Inline = array(
+			'extent' => $Link['extent'] + 1,
+			'element' => array(
+				'name' => 'img',
+				'attributes' => array(
+					'src' => $Link['element']['attributes']['href'],
+					'alt' => $Link['element']['text'],
+				),
+			),
+		);
+
+		$Inline['element']['attributes'] += $Link['element']['attributes'];
+
+		unset($Inline['element']['attributes']['href']);
+
+		return $Inline;
+	}
+}
+
+
 function mk_markdown($markdown) {
 	static $Parsedown = new Parsedown();
 
