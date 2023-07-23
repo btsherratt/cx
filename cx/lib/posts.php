@@ -10,6 +10,16 @@ function mk_markdown($markdown) {
 	return $Parsedown->text($markdown);
 }
 
+class PostMetadata {
+	public $hero_image;
+	public $hero_image_alt;
+
+	public function __construct($dict) {
+		$this->hero_image = $dict['post_hero_image'];
+		$this->hero_image_alt = $dict['post_hero_image_alt'];
+	}
+}
+
 class Post {
 	public $id;
 	public $title;
@@ -35,6 +45,22 @@ class Post {
 		if (count($segments) > 1) {
 			$this->html_excerpt = mk_markdown($segments[0]);
 		}
+	}
+
+	public function get_metadata() {
+		$data = [];
+
+		$doc = new DOMDocument();
+		$doc->loadHTML($this->html_content);
+
+		$image_tag = $doc->getElementsByTagName('img')[0];
+
+		if ($image_tag != null) {
+			$data['post_hero_image'] = $image_tag->getAttribute('src');
+			$data['post_hero_image_alt'] = htmlspecialchars($image_tag->getAttribute('alt'));
+		}
+
+		return new PostMetadata($data);
 	}
 }
 

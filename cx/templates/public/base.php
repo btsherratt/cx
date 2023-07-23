@@ -8,6 +8,21 @@
 	<title><?= cx_site_name(); ?></title>
 	<link rel="stylesheet" href="<?= cx_url('/design/css/style.css') ?>">
 	<link rel="alternate" type="application/rss+xml" title="bts.cx" href="<?= cx_url('/feed/') ?>" />
+
+	<?php if (isset($cx_post_meta)): ?>
+	
+	<meta property="og:title" content="<?= cx_site_name(); ?>">
+	<meta property="og:type" content="article" />
+	<meta property="og:image" content="<?= $cx_post_meta->hero_image; ?>">
+	<meta property="og:url" content="<?= cx_url_site($cx_post_permalink); ?>">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image:alt" content="<?= $cx_post_meta->hero_image_alt; ?>">
+
+	<?php /*<meta property="og:description" content="Offering tour packages for individuals or groups.">
+	<meta property="og:site_name" content="<?= cx_site_name(); ?>">
+	<meta name="twitter:image:alt" content="Alt text for image">*/ ?>
+
+	<?php endif; ?>
 </head>
 
 <body>
