@@ -5,13 +5,19 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<?php if (isset($cx_post_title)): ?>
+	<title><?= cx_site_name(); ?> - <?= $cx_post_title; ?></title>
+	<?php else: ?>
 	<title><?= cx_site_name(); ?></title>
+	<?php endif; ?>
+
 	<link rel="stylesheet" href="<?= cx_url('/design/css/style.css') ?>">
 	<link rel="alternate" type="application/rss+xml" title="bts.cx" href="<?= cx_url('/feed/') ?>" />
 
 	<?php if (isset($cx_post_meta)): ?>
 	
-	<meta property="og:title" content="<?= cx_site_name(); ?>">
+	<meta property="og:title" content="<?= cx_site_name(); ?> - <?= $cx_post_title; ?>">
 	<meta property="og:type" content="article" />
 	<meta property="og:image" content="<?= $cx_post_meta->hero_image; ?>">
 	<meta property="og:url" content="<?= cx_url_site($cx_post_permalink); ?>">
