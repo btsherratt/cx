@@ -125,7 +125,7 @@ function cx_route($path) {
 					$date = cx_form_input_sanitized_date_time('post_date');
 					if (isset($date) == false) $date = null;
 					$draft = cx_form_input_sanitized('post_is_draft') == 'draft';
-					$data = cx_form_input_sanitized('post_data');
+					$data = cx_form_input_sanitized_allowing_html('post_data');
 					
 					if (isset($_GET['id']) == false or $_GET['id'] == 0) {
 						cx_posts_add_post(1, $title, $slug, $date, $draft, $data);

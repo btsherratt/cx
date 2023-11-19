@@ -1,10 +1,19 @@
 <?php
 
 function cx_form_input_sanitized($name) {
+	$input = cx_form_input_sanitized_allowing_html($name);
+
+	if ($input != null) {
+		$input = strip_tags($input);
+	}
+	
+	return $input;
+}
+
+function cx_form_input_sanitized_allowing_html($name) {
 	if (array_key_exists($name, $_POST)) {
 		$insecure_input = $_POST[$name];
-		$tagless_input = strip_tags($insecure_input);
-		return $tagless_input;
+		return $insecure_input;
 	} else {
 		return null;
 	}
