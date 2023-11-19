@@ -175,6 +175,16 @@ code:not([class*="language"]) {
   padding-left: 0.15em;
 }
 
+pre code {
+  margin: 2rem 0;
+  padding: 0.5em 1rem;
+  display: block;
+  border-left: 3px solid rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0 0.25rem 0.25rem 0;
+  overflow-x: auto;
+}
+
 blockquote {
   margin: 2rem 0;
   padding: 0.5em 1rem;
