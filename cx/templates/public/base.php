@@ -19,10 +19,17 @@
 	
 	<meta property="og:title" content="<?= cx_site_name(); ?> - <?= $cx_post_title; ?>">
 	<meta property="og:type" content="article" />
+
+	<?php if (isset($cx_post_meta->hero_image)): ?>
 	<meta property="og:image" content="<?= $cx_post_meta->hero_image; ?>">
+	<?php endif; ?>
+
 	<meta property="og:url" content="<?= cx_url_site($cx_post_permalink); ?>">
 	<meta name="twitter:card" content="summary_large_image">
+
+	<?php if (isset($cx_post_meta->hero_image_alt)): ?>
 	<meta name="twitter:image:alt" content="<?= $cx_post_meta->hero_image_alt; ?>">
+	<?php endif; ?>
 
 	<?php /*<meta property="og:description" content="Offering tour packages for individuals or groups.">
 	<meta property="og:site_name" content="<?= cx_site_name(); ?>">

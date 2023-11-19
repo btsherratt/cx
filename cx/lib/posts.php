@@ -15,8 +15,8 @@ class PostMetadata {
 	public $hero_image_alt;
 
 	public function __construct($dict) {
-		$this->hero_image = $dict['post_hero_image'];
-		$this->hero_image_alt = $dict['post_hero_image_alt'];
+		$this->hero_image = isset($dict['post_hero_image']) ? $dict['post_hero_image'] : null;
+		$this->hero_image_alt = isset($dict['post_hero_image_alt']) ? $dict['post_hero_image_alt'] : null;
 	}
 }
 
