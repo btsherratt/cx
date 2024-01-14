@@ -4,31 +4,9 @@
 	margin: 0;
 }
 
-@font-face {
-	font-family: Fanwood;
-	src: url(/design/fonts/fanwood/fanwood-webfont.woff);
-}
-
-@font-face {
-	font-family: Fanwood;
-	src: url(/design/fonts/fanwood/fanwood_italic-webfont.woff);
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "Fanwood Text";
-	src: url(/design/fonts/fanwood/fanwood_text-webfont.woff);
-}
-
-@font-face {
-	font-family: "Fanwood Text";
-	src: url(/design/fonts/fanwood/fanwood_text_italic-webfont.woff);
-	font-style: italic;
-}
-
 /* Layout */
 
-body {
+/*body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -49,27 +27,65 @@ body > * {
 
 header h1 {
 	font-size: 4em;
+}*/
+
+
+body {
+	--sidebar-width: min(200px, 25%);
+
+	font-family: sans-serif;
+	font-size: 1.4em;
+	line-height: 1.2em;
+	color: #222;
+}
+
+body > * {
+	padding-top: min(100px, 30%);
+}
+
+nav {
+	background: #6c85ff;
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: var(--sidebar-width);
+	height: 100%;
 }
 
 nav ul {
 	list-style: none;
-	display: flex;
+	padding: 0;
+	/*display: flex;
 	flex-wrap: wrap;
 	padding: 0;
 	margin-left: -1rem;
 	margin-right: -1rem;
-	vertical-align: bottom;
+	vertical-align: bottom;*/
 }
 
 nav ul li {
+	text-align: right;
+}
+
+nav ul li a {
+	display: block;
 	padding: 0.5rem 1rem;
+}
+
+nav ul li a:hover {
+	background-color: rgba(255, 255, 255, 0.3);
 }
 
 nav [aria-current="page"] {
 	font-weight: bold;
 }
 
-main,
+main {
+	margin-left: calc(var(--sidebar-width) + 50px);
+}
+
+/*main,
 main > * + * {
 	margin-top: var(--layout-spacing);
 }
@@ -109,7 +125,7 @@ hr {
 	border: 0;
 	height: 1px;
 	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-}
+}*/
 
 /* Typography */
 :is(h1, h2, h3) {
@@ -158,11 +174,13 @@ article img {
 }
 
 /*@supports (aspect-ratio: 1) {
-	article img {
-		max-height: unset;
-		aspect-ratio: 3/2;
-	}
+article img {
+	max-height: unset;
+	aspect-ratio: 3/2;
+}
 }*/
+
+
 
 /* Supporting Content */
 
@@ -192,4 +210,25 @@ blockquote {
 	border-left: 3px solid rgba(0, 0, 0, 0.35);
 	background-color: rgba(0, 0, 0, 0.05);
 	border-radius: 0 0.25rem 0.25rem 0;
+}
+
+
+
+
+input, textarea {
+	font-size: 1em;
+}
+
+#login {
+	--login-width: max(30rem, 10%);
+	--login-height: max(7em, 10%);
+
+	display: block;
+	position: fixed;
+	left: calc(50% - calc(var(--login-width) / 2));
+	top: calc(50% - calc(var(--login-height) / 2));
+	width: var(--login-width);
+	height: var(--login-height);
+	border: 1px solid #aaa;
+	padding: 30px;
 }
