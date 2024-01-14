@@ -2,13 +2,7 @@
 
 cx_require('lib', 'db.php');
 cx_require('lib', 'setup.php');
-cx_require('third_party', 'parsedown', 'Parsedown.php');
-
-function mk_markdown($markdown) {
-	static $Parsedown = new Parsedown();
-
-	return $Parsedown->text($markdown);
-}
+cx_require('lib', 'markdown.php');
 
 class PostMetadata {
 	public $hero_image;
@@ -37,13 +31,13 @@ class Post {
 		$this->date = $dict['post_date'];
 		$this->is_draft = $dict['post_is_draft'];
 		$this->data = $dict['post_data'];
-		$this->html_content = mk_markdown($this->data);
+		$this->html_content = cx_markdown_generate_html($this->data);
 		$this->html_excerpt = null;
 
 		// Read more...
 		$segments = explode('---', $this->data, 2);
 		if (count($segments) > 1) {
-			$this->html_excerpt = mk_markdown($segments[0]);
+			$this->html_excerpt = cx_markdown_generate_html($segments[0]);
 		}
 	}
 

@@ -58,9 +58,28 @@ function cx_images_get(int $limit = 0) {
 	$sql .= ';';
 
 	foreach (cx_db_query($sql) as $image) {
-		$p = new Image($image);
-		yield $p;
+		$i = new Image($image);
+		yield $i;
 	}
+}
+
+function cx_images_find_image($image_id) {
+	$sql = 'SELECT
+		image_id,
+		image_uid,
+		image_type,
+		image_alt_text
+		FROM images
+		WHERE image_id == ?
+		OR image_uid LIKE ?
+		LIMIT 1;';
+
+	foreach (cx_db_query($sql, $image_id, $image_id . "%") as $image) {
+		$i = new Image($image);
+		return $i;
+	}
+
+	return null;
 }
 
 cx_setup_register(1, function() {
