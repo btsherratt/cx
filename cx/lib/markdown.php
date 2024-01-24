@@ -26,7 +26,7 @@ class ExtendedParsedown extends Parsedown {
 				'element' => array(
 					'name' => 'img',
 					'attributes' => array(
-						'src' => cx_url($permalink),
+						'src' => cx_url_site($permalink),
 						'alt' => $image->alt_text,
 					),
 				),
