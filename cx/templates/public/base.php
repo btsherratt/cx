@@ -40,10 +40,11 @@
 
 <body>
 <header>
-  <h1><?= cx_site_name(); ?></h1>
+  <h1><a href="<?= cx_url('/'); ?>"><?= cx_site_name(); ?></a></h1>
+  <p>Find me <a href="https://mastodon.gamedev.place/@btsherratt" rel="me">@btsherratt</a> or on <a href="https://bts.itch.io/">itch.io</a></p>
 </header>
 
-<nav>
+<?php /*<nav>
 
 <ul role="list">
 <li><a href="<?= cx_url('/'); ?>">Home</a></li>
@@ -52,7 +53,8 @@
 <li><a href="<?= cx_url($page->url); ?>"><?= $page->title ?></a></li>
 <?php endforeach; ?>
 </ul>
-</nav>
+
+</nav> */ ?>
 
 <?= cx_template_content(); ?>
 

@@ -5,25 +5,8 @@
 }
 
 @font-face {
-	font-family: Fanwood;
-	src: url(/design/fonts/fanwood/fanwood-webfont.woff);
-}
-
-@font-face {
-	font-family: Fanwood;
-	src: url(/design/fonts/fanwood/fanwood_italic-webfont.woff);
-	font-style: italic;
-}
-
-@font-face {
-	font-family: "Fanwood Text";
-	src: url(/design/fonts/fanwood/fanwood_text-webfont.woff);
-}
-
-@font-face {
-	font-family: "Fanwood Text";
-	src: url(/design/fonts/fanwood/fanwood_text_italic-webfont.woff);
-	font-style: italic;
+	font-family: "League Spartan";
+	src: url(/design/fonts/raleway/LeagueSpartan-VF.woff);
 }
 
 /* Layout */
@@ -33,22 +16,31 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 	padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
-	font-family: Fanwood, serif;
+	font-family: "League Spartan", sans-serif;
 	font-size: 1.4em;
 	line-height: 1.2em;
 	color: #222;
 }
 
 body > * {
-	--layout-spacing: max(8vh, 3rem);
-	--max-width: 60ch;
+	--layout-spacing: 4em;
+	--max-width: 50ch;
 	width: min(100%, var(--max-width));
 	margin-left: auto;
 	margin-right: auto;
 }
 
+header {
+	margin-bottom: 8vh;
+}
+
 header h1 {
-	font-size: 4em;
+	font-size: 2em;
+}
+
+header h1 a {
+	color: #000;
+	text-decoration: none;
 }
 
 nav ul {
@@ -69,7 +61,6 @@ nav [aria-current="page"] {
 	font-weight: bold;
 }
 
-main,
 main > * + * {
 	margin-top: var(--layout-spacing);
 }
@@ -84,6 +75,10 @@ body > footer div {
 	padding-top: 0.5em;
 	font-size: 0.9rem;
 	color: #767676;
+}
+
+article {
+	font-weight: lighter;
 }
 
 article * + * {
@@ -104,11 +99,10 @@ article > h1 + .updated {
 }
 
 hr {
-	width: 80%;
 	margin: 4em auto;
 	border: 0;
 	height: 1px;
-	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	background: #ccc;
 }
 
 /* Typography */
@@ -144,7 +138,7 @@ a:focus {
 
 /* Media */
 article + article {
-	border-top: 1px dashed #ccc;
+	border-top: 1px solid #ccc;
 	padding-top: var(--layout-spacing);
 }
 
