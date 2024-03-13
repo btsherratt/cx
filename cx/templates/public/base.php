@@ -13,7 +13,7 @@
 	<?php endif; ?>
 
 	<link rel="stylesheet" href="<?= cx_url('/design/css/style.css') ?>">
-	<link rel="alternate" type="application/rss+xml" title="bts.cx" href="<?= cx_url('/feed/') ?>" />
+	<link rel="alternate" type="application/atom+xml" title="bts.cx" href="<?= cx_url('/feed/') ?>" />
 
 	<?php if (isset($cx_post_meta)): ?>
 	
