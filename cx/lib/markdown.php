@@ -6,7 +6,8 @@ cx_require('third_party', 'parsedown', 'Parsedown.php');
 
 class ExtendedParsedown extends Parsedown {
 	public function __construct() {
-		$this->InlineTypes['{'][]= 'BlogImage';
+		$this->InlineTypes['{'][] = 'BlogImage';
+		$this->InlineTypes['{'][] = 'Youtube';
 		$this->inlineMarkerList .= '{';
 	}
 
@@ -28,6 +29,35 @@ class ExtendedParsedown extends Parsedown {
 					'attributes' => array(
 						'src' => cx_url_site($permalink),
 						'alt' => $image->alt_text,
+					),
+				),
+			);
+		}
+	}
+
+	protected function inlineYoutube($excerpt) {
+		if (preg_match('/^{yt:([^}]+)}/', $excerpt['text'], $matches)) {
+			$video_id = $matches[1];
+
+			if ($video_id == null) {
+				return;
+			}
+
+			return array(
+				'extent' => strlen($matches[0]) + 1, 
+				'element' => array(
+					'name' => 'iframe',
+					'text' => '',
+					'attributes' => array(
+						'id' => "ytplayer",
+						'type' => "text/html",
+						'width' => "640",
+						'height' => "360",
+						'src' => "https://www.youtube.com/embed/" . $video_id,
+						'frameborder' => "0",
+						'loading' => "lazy",
+						'referrerpolicy' => "no-referrer",
+						'sandbox' => "allow-same-origin allow-scripts",
 					),
 				),
 			);
