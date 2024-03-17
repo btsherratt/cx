@@ -49,10 +49,10 @@ class ExtendedParsedown extends Parsedown {
 					'name' => 'iframe',
 					'text' => '',
 					'attributes' => array(
-						'id' => "ytplayer",
+						'class' => "video",
 						'type' => "text/html",
-						'width' => "640",
-						'height' => "360",
+						//'width' => "640",
+						//'height' => "360",
 						'src' => "https://www.youtube.com/embed/" . $video_id,
 						'frameborder' => "0",
 						'loading' => "lazy",

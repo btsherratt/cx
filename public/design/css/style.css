@@ -145,10 +145,17 @@ article + article {
 article img {
 	display: block;
 	width: 100%;
-	min-height: 20rem;
-	max-height: 40vh;
+	aspect-ratio: 640 / 360;
+	/*min-height: 20rem;
+	max-height: 40vh;*/
 	object-fit: cover;
 	margin: 0 auto 1rem !important;
+}
+
+article iframe {
+	display: block;
+	width: 100%;
+	aspect-ratio: 640 / 360;
 }
 
 /*@supports (aspect-ratio: 1) {
