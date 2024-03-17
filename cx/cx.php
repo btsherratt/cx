@@ -66,6 +66,7 @@ function cx_route($path) {
 
 	if (count($path_components) == 0) {
 		$template = 'list';
+		$template_variables['page_number'] = 0;
 	} else if (count($path_components) >= 1 && $path_components[0] == 'feed') {
 		header('Content-type: application/atom+xml;');
 		$template = 'atom';
@@ -162,6 +163,11 @@ function cx_route($path) {
 				}
 			}
 		}
+	} else if (count($path_components) >= 2 && $path_components[0] == 'page') { // FIXME sometime, needs more flexibility...
+		$page_number = $path_components[1];
+
+		$template = 'list';
+		$template_variables['page_number'] = $page_number;
 	} else if (count($path_components) >= 3) { // FIXME sometime, needs more flexibility...
 		$year = $path_components[0];
 		$month = $path_components[1];

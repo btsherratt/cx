@@ -127,7 +127,7 @@ function cx_posts_delete_post($post_id) {
 	cx_db_exec($sql, $post_id);
 }
 
-function cx_posts_get(int $limit = 0, bool $include_drafts = false) {
+function cx_posts_get(int $limit = 0, int $offset = 0, bool $include_drafts = false) {
 	$sql = 'SELECT
 		post_id,
 		post_slug,
@@ -146,6 +146,10 @@ function cx_posts_get(int $limit = 0, bool $include_drafts = false) {
 	
 	if ($limit > 0) {
 		$sql .= ' LIMIT ' . $limit;
+	}
+	
+	if ($offset > 0) {
+		$sql .= ' OFFSET ' . $offset;
 	}
 
 	$sql .= ';';

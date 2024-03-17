@@ -55,6 +55,10 @@ function cx_site_url() {
 	return $details['site_url'];
 }
 
+function cx_site_posts_per_page() {
+	return 5;
+}
+
 cx_setup_register(1, function() {
 	cx_db_exec('CREATE TABLE sites (
 			site_id INTEGER PRIMARY KEY,
